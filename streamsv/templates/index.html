@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Stream</title>
+</head>
+<body>
+    <h1>Screen Streaming</h1>
+    <button id="start">Start Streaming</button>
+    <video id="video" autoplay playsinline></video>
+    <script>
+        const startButton = document.getElementById('start');
+const video = document.getElementById('video');
+
+startButton.addEventListener('click', async () => {
+    try {
+        // Request video and audio
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+            audio: true // Enable audio capture
+        });
+
+        // Display the stream in the video element
+        video.srcObject = stream;
+
+        // Optional: Handle audio constraints or errors
+        stream.getAudioTracks().forEach(track => {
+            console.log("Audio track added:", track);
+        });
+    } catch (err) {
+        console.error("Error: ", err);
+    }
+});
+
+    </script>
+</body>
+</html>
